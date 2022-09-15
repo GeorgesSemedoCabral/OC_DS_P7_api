@@ -1,3 +1,0 @@
-# Note méthodologique
-
-En cours de rédaction...

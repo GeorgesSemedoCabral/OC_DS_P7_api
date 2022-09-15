@@ -1,2 +1,2 @@
-# OC_DS_P7_api
-Impélmentez un modèle de scoring
+# Note méthodologique
+En cours de rédaction...

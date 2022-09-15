@@ -1,5 +1,4 @@
 import joblib
-import pandas as pd
 import shap
 import uvicorn
 from fastapi import FastAPI
@@ -18,7 +17,6 @@ def profile_and_predict(client: ClientID):
     data = client.dict()
     for i in range(0, 5):
         df_chunk = joblib.load("data/split_csv_pandas/chunk{}.sav".format(i))
-        #df_chunk = pd.read_csv("data/split_csv_pandas/chunk{}.csv".format(i))
         if data["SK_ID_CURR"] not in list(df_chunk["SK_ID_CURR"]):
             del df_chunk
         else:
@@ -56,7 +54,6 @@ def client_features(client: ClientID2):
     data = client.dict()
     for i in range(0, 5):
         df_chunk = joblib.load("data/split_csv_pandas/chunk{}.sav".format(i))
-        #df_chunk = pd.read_csv("data/split_csv_pandas/chunk{}.csv".format(i))
         if data["SK_ID_CURR"] not in list(df_chunk["SK_ID_CURR"]):
             del df_chunk
         else:

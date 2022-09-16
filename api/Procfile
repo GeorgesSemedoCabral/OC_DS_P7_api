@@ -1,1 +1,1 @@
-web: uvicorn code_API:app --port=${PORT}
+web: uvicorn code_API:app --host=0.0.0.0 --port=${PORT}

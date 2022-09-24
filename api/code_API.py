@@ -8,9 +8,13 @@ app = FastAPI()
 lgbm_model = joblib.load("models/balanced_lgbm_model.sav")
 explainer = shap.TreeExplainer(lgbm_model)
 
+# On crée la classe de données qui permettront d'exposer l'API pour la prédiction du score.
+
 class ClientID(BaseModel):
     SK_ID_CURR: int
     threshold: float
+
+# L'API charge les données du client demandé, les prétraite pour le mettre au bon format pour le modèle, et calcule la probabilité du score de prédiction. En fonction du seuil de prédiction demandé, l'API retourne le score "G" ou "B" avec la probabilité de score positif.
 
 @app.post("/predict")
 def profile_and_predict(client: ClientID):
@@ -46,8 +50,12 @@ def profile_and_predict(client: ClientID):
         "SCORE": score
     }
 
+# On crée la classe de données qui permettront d'exposer l'API pour l'interprétation du score de prédiction.
+
 class ClientID2(BaseModel):
     SK_ID_CURR: int
+
+# L'API charge les données du client demandé, les prétraite pour le mettre au bon format pour le modèle, et calcule les valeurs de Shapley des variables. L'API retourne la valeur de référence, les valeurs de Shapley du client demandé, et la matrice des variables passées à la fonction de SHAP. Ces données peuvent notamment servir à générer le graphique SHAP au format JavaScript sur un dashboard.
 
 @app.post("/features")
 def client_features(client: ClientID2):
